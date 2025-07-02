@@ -18,18 +18,7 @@ RUN set -eux; \
 # install amazon systems management depending on arch
 RUN apt-get install -y curl ca-certificates && \
     arch=$(dpkg --print-architecture) && \
-    case ${arch} in \
-        "arm64") \
-            curl "https://s3.amazonaws.com/amazon-ssm/latest/debian_arm64/amazon-ssm-agent.deb" -o /tmp/amazon-ssm-agent.deb \
-            ;; \
-        "amd64") \
-            curl "https://s3.amazonaws.com/amazon-ssm/latest/debian_amd64/amazon-ssm-agent.deb" -o /tmp/amazon-ssm-agent.deb \
-            ;; \
-        *) \
-            echo "Unsupported architecture: ${arch}" >&2 \
-            exit 1 \
-            ;; \
-    esac && \
+    curl "https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_${arch}/amazon-ssm-agent.deb" -o /tmp/amazon-ssm-agent.deb && \
     dpkg -i /tmp/amazon-ssm-agent.deb && \
     rm -f /tmp/amazon-ssm-agent.deb
 
