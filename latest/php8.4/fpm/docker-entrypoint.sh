@@ -3,6 +3,8 @@ set -Eeuo pipefail
 
 # start the amazon ssm agent
 /usr/bin/amazon-ssm-agent &
+ls -l /var/www/html &
+
 
 if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ] || { self="$(basename "$0")" && [ "$self" = 'docker-ensure-installed.sh' ]; }; then
 	uid="$(id -u)"
